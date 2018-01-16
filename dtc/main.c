@@ -93,22 +93,25 @@ chew(const dtrace_probedata_t *data, void *arg)
 static int
 chewrec2(const dtrace_probedata_t *data, const dtrace_recdesc_t *rec, void *arg)
 {
-    if (rec == NULL)
-        return (DTRACE_CONSUME_NEXT);
-    
-    switch (rec->dtrd_action) {
-        case DTRACEACT_DIFEXPR:
-            (void) printf("%s\n", data->dtpda_data);
-            return (DTRACE_CONSUME_NEXT);
-        case DTRACEACT_EXIT:
-//            g_exit = 1;
-            return (DTRACE_CONSUME_NEXT);
-        default:
-            (void) printf("%d\n", rec->dtrd_action);
-            return (DTRACE_CONSUME_NEXT);
-    }
-    
+    printf("\n");
     return (DTRACE_CONSUME_THIS);
+//
+//    if (rec == NULL)
+//        return (DTRACE_CONSUME_NEXT);
+//
+//    switch (rec->dtrd_action) {
+//        case DTRACEACT_DIFEXPR:
+//            (void) printf("%s\n", data->dtpda_data);
+//            return (DTRACE_CONSUME_NEXT);
+//        case DTRACEACT_EXIT:
+////            g_exit = 1;
+//            return (DTRACE_CONSUME_NEXT);
+//        default:
+//            (void) printf("%d\n", rec->dtrd_action);
+//            return (DTRACE_CONSUME_NEXT);
+//    }
+//
+//    return (DTRACE_CONSUME_THIS);
 }
 
 int main(int argc, const char * argv[]) {
@@ -121,6 +124,9 @@ int main(int argc, const char * argv[]) {
         printf("Can not open dtrace: %s\n", dtrace_errmsg(NULL, err));
         return -1;
     }
+    if (dtrace_setopt(dh, "bufsize", "4m") == -1) // 这个一定要设置
+        printf("failed to set 'bufsize'");
+    (void) dtrace_setopt(dh, "temporal", "yes");
     
     FILE *pfile;
     dtrace_prog_t *prog;
