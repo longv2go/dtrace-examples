@@ -10,6 +10,8 @@
 		508EA374200CDA16005DDDC1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 508EA373200CDA16005DDDC1 /* main.m */; };
 		508EA381200CDA42005DDDC1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 508EA380200CDA42005DDDC1 /* main.c */; };
 		508EA406200DB741005DDDC1 /* libdtrace.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 508EA3C1200DB732005DDDC1 /* libdtrace.dylib */; };
+		508EA40E200DCD41005DDDC1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 508EA40D200DCD41005DDDC1 /* main.c */; };
+		508EA412200DCD4E005DDDC1 /* libdtrace.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 508EA3C1200DB732005DDDC1 /* libdtrace.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -300,6 +302,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		508EA409200DCD41005DDDC1 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -309,6 +320,8 @@
 		508EA380200CDA42005DDDC1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		508EA386200CDA4E005DDDC1 /* libdtrace.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libdtrace.tbd; path = usr/lib/libdtrace.tbd; sourceTree = SDKROOT; };
 		508EA389200DB731005DDDC1 /* dtrace.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = dtrace.xcodeproj; path = "../../apple_source/dtrace-262/dtrace.xcodeproj"; sourceTree = "<group>"; };
+		508EA40B200DCD41005DDDC1 /* dtc2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dtc2; sourceTree = BUILT_PRODUCTS_DIR; };
+		508EA40D200DCD41005DDDC1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +340,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		508EA408200DCD41005DDDC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				508EA412200DCD4E005DDDC1 /* libdtrace.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -336,6 +357,7 @@
 				508EA389200DB731005DDDC1 /* dtrace.xcodeproj */,
 				508EA372200CDA16005DDDC1 /* dtrace-consumers */,
 				508EA37F200CDA42005DDDC1 /* dtc */,
+				508EA40C200DCD41005DDDC1 /* dtc2 */,
 				508EA371200CDA16005DDDC1 /* Products */,
 				508EA385200CDA4E005DDDC1 /* Frameworks */,
 			);
@@ -346,6 +368,7 @@
 			children = (
 				508EA370200CDA16005DDDC1 /* dtrace-consumers */,
 				508EA37E200CDA42005DDDC1 /* dtc */,
+				508EA40B200DCD41005DDDC1 /* dtc2 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -419,6 +442,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		508EA40C200DCD41005DDDC1 /* dtc2 */ = {
+			isa = PBXGroup;
+			children = (
+				508EA40D200DCD41005DDDC1 /* main.c */,
+			);
+			path = dtc2;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -456,6 +487,23 @@
 			productReference = 508EA37E200CDA42005DDDC1 /* dtc */;
 			productType = "com.apple.product-type.tool";
 		};
+		508EA40A200DCD41005DDDC1 /* dtc2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 508EA40F200DCD41005DDDC1 /* Build configuration list for PBXNativeTarget "dtc2" */;
+			buildPhases = (
+				508EA407200DCD41005DDDC1 /* Sources */,
+				508EA408200DCD41005DDDC1 /* Frameworks */,
+				508EA409200DCD41005DDDC1 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = dtc2;
+			productName = dtc2;
+			productReference = 508EA40B200DCD41005DDDC1 /* dtc2 */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -470,6 +518,10 @@
 						ProvisioningStyle = Automatic;
 					};
 					508EA37D200CDA42005DDDC1 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					508EA40A200DCD41005DDDC1 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 					};
@@ -495,6 +547,7 @@
 			targets = (
 				508EA36F200CDA16005DDDC1 /* dtrace-consumers */,
 				508EA37D200CDA42005DDDC1 /* dtc */,
+				508EA40A200DCD41005DDDC1 /* dtc2 */,
 			);
 		};
 /* End PBXProject section */
@@ -785,6 +838,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		508EA407200DCD41005DDDC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				508EA40E200DCD41005DDDC1 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -923,6 +984,22 @@
 			};
 			name = Release;
 		};
+		508EA410200DCD41005DDDC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		508EA411200DCD41005DDDC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -949,6 +1026,15 @@
 			buildConfigurations = (
 				508EA383200CDA42005DDDC1 /* Debug */,
 				508EA384200CDA42005DDDC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		508EA40F200DCD41005DDDC1 /* Build configuration list for PBXNativeTarget "dtc2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				508EA410200DCD41005DDDC1 /* Debug */,
+				508EA411200DCD41005DDDC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
