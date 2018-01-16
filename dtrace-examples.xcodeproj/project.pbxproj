@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		508EA374200CDA16005DDDC1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 508EA373200CDA16005DDDC1 /* main.m */; };
 		508EA381200CDA42005DDDC1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 508EA380200CDA42005DDDC1 /* main.c */; };
 		508EA406200DB741005DDDC1 /* libdtrace.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 508EA3C1200DB732005DDDC1 /* libdtrace.dylib */; };
 		508EA40E200DCD41005DDDC1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 508EA40D200DCD41005DDDC1 /* main.c */; };
@@ -284,15 +283,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		508EA36E200CDA16005DDDC1 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		508EA37C200CDA42005DDDC1 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -314,7 +304,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		508EA370200CDA16005DDDC1 /* dtrace-consumers */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "dtrace-consumers"; sourceTree = BUILT_PRODUCTS_DIR; };
 		508EA373200CDA16005DDDC1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		508EA37E200CDA42005DDDC1 /* dtc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dtc; sourceTree = BUILT_PRODUCTS_DIR; };
 		508EA380200CDA42005DDDC1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
@@ -325,13 +314,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		508EA36D200CDA16005DDDC1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		508EA37B200CDA42005DDDC1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -366,7 +348,6 @@
 		508EA371200CDA16005DDDC1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				508EA370200CDA16005DDDC1 /* dtrace-consumers */,
 				508EA37E200CDA42005DDDC1 /* dtc */,
 				508EA40B200DCD41005DDDC1 /* dtc2 */,
 			);
@@ -453,23 +434,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		508EA36F200CDA16005DDDC1 /* dtrace-consumers */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 508EA377200CDA16005DDDC1 /* Build configuration list for PBXNativeTarget "dtrace-consumers" */;
-			buildPhases = (
-				508EA36C200CDA16005DDDC1 /* Sources */,
-				508EA36D200CDA16005DDDC1 /* Frameworks */,
-				508EA36E200CDA16005DDDC1 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "dtrace-consumers";
-			productName = "dtrace-consumers";
-			productReference = 508EA370200CDA16005DDDC1 /* dtrace-consumers */;
-			productType = "com.apple.product-type.tool";
-		};
 		508EA37D200CDA42005DDDC1 /* dtc */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 508EA382200CDA42005DDDC1 /* Build configuration list for PBXNativeTarget "dtc" */;
@@ -513,10 +477,6 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = ant;
 				TargetAttributes = {
-					508EA36F200CDA16005DDDC1 = {
-						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
-					};
 					508EA37D200CDA42005DDDC1 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -527,7 +487,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 508EA36B200CDA16005DDDC1 /* Build configuration list for PBXProject "dtrace-consumers" */;
+			buildConfigurationList = 508EA36B200CDA16005DDDC1 /* Build configuration list for PBXProject "dtrace-examples" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -545,7 +505,6 @@
 			);
 			projectRoot = "";
 			targets = (
-				508EA36F200CDA16005DDDC1 /* dtrace-consumers */,
 				508EA37D200CDA42005DDDC1 /* dtc */,
 				508EA40A200DCD41005DDDC1 /* dtc2 */,
 			);
@@ -822,14 +781,6 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
-		508EA36C200CDA16005DDDC1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				508EA374200CDA16005DDDC1 /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		508EA37A200CDA42005DDDC1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -952,22 +903,6 @@
 			};
 			name = Release;
 		};
-		508EA378200CDA16005DDDC1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		508EA379200CDA16005DDDC1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		508EA383200CDA42005DDDC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1003,20 +938,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		508EA36B200CDA16005DDDC1 /* Build configuration list for PBXProject "dtrace-consumers" */ = {
+		508EA36B200CDA16005DDDC1 /* Build configuration list for PBXProject "dtrace-examples" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				508EA375200CDA16005DDDC1 /* Debug */,
 				508EA376200CDA16005DDDC1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		508EA377200CDA16005DDDC1 /* Build configuration list for PBXNativeTarget "dtrace-consumers" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				508EA378200CDA16005DDDC1 /* Debug */,
-				508EA379200CDA16005DDDC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

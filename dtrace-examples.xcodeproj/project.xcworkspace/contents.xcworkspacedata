@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:dtrace-consumers.xcodeproj">
+      location = "self:/Users/albert/Workspace/test/dtrace-consumers/dtrace-examples.xcodeproj">
    </FileRef>
 </Workspace>
