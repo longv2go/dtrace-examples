@@ -211,7 +211,7 @@ int dtrace_dof_slurp(dof_hdr_t *dof) {
             {
                 int num = (int)(sec->dofs_size / sec->dofs_entsize);
                 for (int j = 0; j < num; j++) {
-                    uint32_t *p = daddr + sec->dofs_offset + j* sec->dofs_entsize;
+                    uint32_t *p = (uint32_t *)(daddr + sec->dofs_offset + j* sec->dofs_entsize);
                     printf("%*s[%d] %d\n", 4, " ", j, *p);
                 }
             }
