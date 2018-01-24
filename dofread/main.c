@@ -84,10 +84,16 @@ char * type_to_string(int type) {
     return t2s[type];
 }
 
+void print_probe(dof_probe_t *probe, char *strtab, int indent) {
+    printf("%*s", indent, " ");
+    printf("%s : %s\n", strtab + probe->dofpr_func, strtab + probe->dofpr_name);
+    printf("%*snoffs(%d) - offidx(%d) - nenoffs(%d) - enoffidx(%d)\n", indent*2, " ", probe->dofpr_noffs, probe->dofpr_offidx, probe->dofpr_nenoffs, probe->dofpr_enoffidx);
+}
+
 int dtrace_dof_slurp(dof_hdr_t *dof) {
     uint64_t len = dof->dofh_loadsz, seclen;
     uint64_t daddr = (uint64_t)dof;
-    char *strtab, *typestr;
+    char *strtab = NULL, *typestr;
 //    dtrace_ecbdesc_t *ep;
 //    dtrace_enabling_t *enab;
     uint_t i;
@@ -124,6 +130,8 @@ int dtrace_dof_slurp(dof_hdr_t *dof) {
         error("DOF version mismatch");
         return (-1);
     }
+    
+    printf("DOF VERSIOIN: %d\n", dof->dofh_ident[DOF_ID_VERSION]);
     
     if (dof->dofh_ident[DOF_ID_DIFVERS] != DIF_VERSION_2) {
         error("DOF uses unsupported instruction set");
@@ -184,22 +192,30 @@ int dtrace_dof_slurp(dof_hdr_t *dof) {
                 dof_provider_t *prov;
                 for(int i = 0; i < num; i++) {
                     prov = (dof_provider_t *)(daddr + sec->dofs_offset + i * sizeof(dof_provider_t));
-                    printf("    %s\n", strtab + prov->dofpv_name);
+                    printf("    %s, dofpv_probes(%d), proffs(%d)\n", strtab + prov->dofpv_name, prov->dofpv_probes, prov->dofpv_proffs);
                 }
             }
                 break;
             case DOF_SECT_PROBES:
             {
-                printf("    function : name\n");
+                printf("%*sfunction : name\n", 4, " ");
                 int num = (int)sec->dofs_size/sizeof(dof_probe_t);
                 dof_probe_t *probe;
                 for(int i = 0; i < num; i++) {
                     probe = (dof_probe_t *)(daddr + sec->dofs_offset + i * sizeof(dof_probe_t));
-                    printf("    %s : %s\n", strtab + probe->dofpr_func, strtab + probe->dofpr_name);
+                    print_probe(probe, strtab, 4);
                 }
             }
                 break;
             case DOF_SECT_PROFFS:
+            {
+                int num = (int)(sec->dofs_size / sec->dofs_entsize);
+                for (int j = 0; j < num; j++) {
+                    uint32_t *p = daddr + sec->dofs_offset + j* sec->dofs_entsize;
+                    printf("%*s[%d] %d\n", 4, " ", j, *p);
+                }
+            }
+                break;
             case DOF_SECT_ECBDESC:
                 // ......
                 break;

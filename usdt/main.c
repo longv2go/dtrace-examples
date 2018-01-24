@@ -13,5 +13,8 @@
 int main(int argc, const char * argv[]) {
 
     SYNCENGINE_SYNC_STRATEGY_GO_TO_STATE(1);
+    SYNCENGINE_SYNC_STRATEGY_LEAVE_STATE(2);
+    printf("hello\n");
+    SYNCENGINE_SYNC_STRATEGY_GO_TO_STATE(1);
     return 0;
 }
