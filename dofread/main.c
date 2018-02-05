@@ -368,6 +368,7 @@ int main(int argc, char * argv[]) {
     
     if (g_opt_macho) { // 读取 macho 中的 S_DTRACE_DOF
         struct mach_header_64 * macho = get_macho_hdr(buff); // 暂时只读取 64 位
+        printf("DOF of file: %s\n", path);
         dof_hdr_t * dof = dof_of_macho(macho);
         if (!dof) {
             error("no dof section in %s\n", path);
