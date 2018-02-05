@@ -12,6 +12,8 @@
 #include <assert.h>
 #include <getopt.h>
 #include <mach-o/loader.h>
+#include <mach-o/fat.h>
+#include <CoreFoundation/CoreFoundation.h>
 
 // relocation_info.r_length field has value 3 for 64-bit executables and value 2 for 32-bit executables
 #if __LP64__
@@ -247,7 +249,12 @@ void display_usage() {
     // TODO:
 }
 
+// 如果是 fat binary 只会返回 x86_64 的 dof
 dof_hdr_t *dof_of_macho(struct mach_header_64 *macho) {
+    if (!macho) {
+        return NULL;
+    }
+    // TODO: 格式检查
     
     // walk load commands (mapped in at start of __TEXT segment)
     const uint32_t cmd_count = (macho)->ncmds;
@@ -276,6 +283,37 @@ dof_hdr_t *dof_of_macho(struct mach_header_64 *macho) {
         cmd = (const struct load_command*)(((char*)cmd)+cmd->cmdsize);
     }
     
+    return NULL;
+}
+
+struct mach_header_64 * get_macho_hdr(char *buff) {
+    uint32_t magic = *(uint32_t *)buff;
+    if (magic == FAT_MAGIC || magic == FAT_CIGAM) {
+        struct fat_header * fat = (struct fat_header *)buff;
+        struct mach_header_64 * found = 0;
+        struct fat_arch *archs = (struct fat_arch *)(buff + sizeof(struct fat_header));
+        for (int i = 0; i < CFSwapInt32(fat->nfat_arch); i++) {
+            struct fat_arch arch = *(archs + i);
+            
+            if (CFSwapInt32(arch.cputype) == CPU_TYPE_X86_64) {
+                found = (struct mach_header_64 *)(buff + CFSwapInt32(arch.offset));
+                break;
+            }
+        }
+        
+        if (!found) {
+            error("Can not found x86_64 file\n");
+            return NULL;
+        }
+        return found;
+    } else {
+        if (magic == MH_MAGIC_64 || magic == MH_CIGAM_64) {
+            return (struct mach_header_64 *)buff;
+        } else {
+            error("Not found 64 bit binary\n");
+            return NULL;
+        }
+    }
     return NULL;
 }
 
@@ -324,12 +362,13 @@ int main(int argc, char * argv[]) {
         }
     }
     bzero((void *)buff, size + 1);
-    
-    /* read */
+
+    // TODO: 读取大文件，暂时不考虑
     fread(buff, size + 1, 1, fd);
     
     if (g_opt_macho) { // 读取 macho 中的 S_DTRACE_DOF
-        dof_hdr_t * dof = dof_of_macho((struct mach_header_64 *)buff);
+        struct mach_header_64 * macho = get_macho_hdr(buff); // 暂时只读取 64 位
+        dof_hdr_t * dof = dof_of_macho(macho);
         if (!dof) {
             error("no dof section in %s\n", path);
             exit(-1);

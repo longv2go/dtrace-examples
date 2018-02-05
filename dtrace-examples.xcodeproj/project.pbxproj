@@ -336,6 +336,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		50589DB920287E300034886F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		508EA37E200CDA42005DDDC1 /* dtc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dtc; sourceTree = BUILT_PRODUCTS_DIR; };
 		508EA380200CDA42005DDDC1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		508EA386200CDA4E005DDDC1 /* libdtrace.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libdtrace.tbd; path = usr/lib/libdtrace.tbd; sourceTree = SDKROOT; };
@@ -430,6 +431,7 @@
 		508EA385200CDA4E005DDDC1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50589DB920287E300034886F /* CoreFoundation.framework */,
 				508EA386200CDA4E005DDDC1 /* libdtrace.tbd */,
 			);
 			name = Frameworks;
