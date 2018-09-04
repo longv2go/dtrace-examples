@@ -11,7 +11,8 @@
 // sudo dtrace -n "syncengine_sync*::: {printf(\"Transitioning to state %d\n\", arg0);}"
 
 int main(int argc, const char * argv[]) {
-
+    
+    printf("\n");
     SYNCENGINE_SYNC_STRATEGY_GO_TO_STATE(1);
     SYNCENGINE_SYNC_STRATEGY_LEAVE_STATE(2);
     printf("hello\n");

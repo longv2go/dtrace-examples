@@ -24,7 +24,10 @@ int main(int argc, const char * argv[]) {
     }
     pfile = fopen(argv[1], "r");
     prog = dtrace_program_fcompile(dh, pfile, DTRACE_C_CPP, 0, NULL);
-    
+    if (!prog) {
+        printf("complie %s failed\n", argv[1]);
+        exit(1);
+    }
     void *dof = dtrace_dof_create(dh, prog, 0);
     if (dof && argv[2]) {
         dof_hdr_t *hdr = dof;
@@ -35,6 +38,6 @@ int main(int argc, const char * argv[]) {
         fclose(fp);
     }
     
-    dt_node_printr();
+//    dt_node_printr();
     return 0;
 }

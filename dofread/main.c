@@ -26,11 +26,17 @@
 #define LC_SEGMENT_COMMAND_WRONG LC_SEGMENT_64
 #endif
 
+#define SECT_CACHE_MAX_COUNT 128
+static void *g_dof_sections[SECT_CACHE_MAX_COUNT]; // index -> dof_sec_t*
+static int dof_sections_count;
+static dof_hdr_t *g_dof;
+
 extern int errno;
 static const char *optString = "mh?";
 
 int g_opt_macho = 0;
 
+#pragma mark - tools
 static void
 verror(const char *fmt, va_list ap)
 {
@@ -92,14 +98,32 @@ void print_probe(dof_probe_t *probe, char *strtab, int indent) {
     printf("%*snoffs(%d) - offidx(%d) - nenoffs(%d) - enoffidx(%d)\n", indent*2, " ", probe->dofpr_noffs, probe->dofpr_offidx, probe->dofpr_nenoffs, probe->dofpr_enoffidx);
 }
 
+char *dof_str(dof_secidx_t strtab, dof_stridx_t idx) {
+    if (strtab > dof_sections_count || dof_sections_count <= 0) {
+        return NULL;
+    }
+    
+    if (!g_dof) return NULL;
+    
+    dof_sec_t *sec = g_dof_sections[strtab];
+    if (sec->dofs_type != DOF_SECT_STRTAB) {
+        return NULL;
+    }
+    
+    char *base = (char *)g_dof + sec->dofs_offset;
+    return (char *)(base + idx);
+}
+
+#pragma mark - DOF Reader
 int dtrace_dof_slurp(dof_hdr_t *dof) {
     uint64_t len = dof->dofh_loadsz, seclen;
     uint64_t daddr = (uint64_t)dof;
+    g_dof = dof;
     char *strtab = NULL, *typestr;
 //    dtrace_ecbdesc_t *ep;
 //    dtrace_enabling_t *enab;
     uint_t i;
-    
+    dof_sections_count = 0;
 
     assert(dof->dofh_loadsz >= sizeof (dof_hdr_t));
     
@@ -177,10 +201,15 @@ int dtrace_dof_slurp(dof_hdr_t *dof) {
     /* 遍历 section */
     for (int i = 0; i < dof->dofh_secnum; i++) {
         dof_sec_t *sec = (dof_sec_t *)((uintptr_t)dof + (uintptr_t)dof->dofh_secoff + i * dof->dofh_secsize);
+        
+        dof_sections_count++;
+        g_dof_sections[i] = sec;
+        
         printf("[%d] section type: %s\n", i, type_to_string(sec->dofs_type));
         switch (sec->dofs_type) {
             case DOF_SECT_STRTAB:
                 strtab = (char *)daddr + sec->dofs_offset;
+                printf("    base: %p\n", strtab);
                 break;
             case DOF_SECT_DIF:
             {
@@ -221,17 +250,27 @@ int dtrace_dof_slurp(dof_hdr_t *dof) {
             case DOF_SECT_ECBDESC:
                 // ......
                 break;
-                
+            case DOF_SECT_PROBEDESC:
+            {
+                // dof_probedesc_t
+                int num = (int)(sec->dofs_size / sec->dofs_entsize);
+                dof_probedesc_t *probe_desc;
+                for(int i = 0; i < num; i++) {
+                    probe_desc = (dof_probedesc_t *)(daddr + sec->dofs_offset + i * sizeof(dof_probe_t));
+                    printf("    provider:%s | mod:%s | func:%s | name:%s\n",
+                           dof_str(probe_desc->dofp_strtab, probe_desc->dofp_provider),
+                           dof_str(probe_desc->dofp_strtab, probe_desc->dofp_mod),
+                           dof_str(probe_desc->dofp_strtab, probe_desc->dofp_func),
+                           dof_str(probe_desc->dofp_strtab, probe_desc->dofp_name));
+                }
+            }
+                break;
             default:
                 break;
         }
     }
     
     return 0;
-}
-
-char *dof_str(char *strtab, dof_stridx_t idx) {
-    return "";
 }
 
 size_t file_size(const char *path) {
